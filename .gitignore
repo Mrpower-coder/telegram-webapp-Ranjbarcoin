@@ -5,3 +5,7 @@ db.sqlite3
 *.log
 venv/
 .env.local
+node_modules/
+.DS_Store
+dist/
+build/
