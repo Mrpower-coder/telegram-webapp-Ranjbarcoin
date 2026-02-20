@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranjbar Coin - Info</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg: #0f1115;
+  --card: rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.08);
+  --text: #ffffff;
+  --muted: #a0a0a0;
+  --accent: #00ffae;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  overflow-x:hidden;
+}
+
+
+html{
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow:hidden;
+}
+
+body{
+  margin:0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(180deg,#0f1115,#141821);
+  color: var(--text);
+  overflow-x:hidden;
+  overflow:hidden;
+}
+
+.container{
+  width:100%;
+  max-width:100%;
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+  position:relative;
+  
+}
+.container{
+  height:100dvh;
+  overflow-x:hidden;
+  overflow-y:auto;
+}
+
+
+/* Hide Scrollbar */
+.container{
+  scrollbar-width:none; /* Firefox */
+}
+
+.container::-webkit-scrollbar{
+  display:none; /* Chrome, Safari */
+}
+
+/* Background Glow */
+.section::before{
+  content:"";
+  position:absolute;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,var(--accent),transparent 60%);
+  opacity:0.06;
+  filter:blur(100px);
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+.section{
+  width:100%;
+  height:100vh;
+  scroll-snap-align:start;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px 20px;
+  position:relative;
+  opacity:0;
+  transform:translateY(50px);
+  transition:all .7s cubic-bezier(.22,.61,.36,1);
+}
+
+.section{
+  position:relative;
+  width:100%;
+  min-height:100dvh;
+  padding:60px 20px;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+}
+
+.section.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ===== Navigation Slide ===== */
+
+.nav-slide{
+  gap:20px;
+}
+
+.big-nav{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  width:100%;
+  max-width:400px;
+}
+
+.big-nav button{
+  padding:18px;
+  font-size:18px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  transition:.3s;
+  backdrop-filter:blur(10px);
+}
+
+.big-nav button:hover{
+  background:var(--accent);
+  color:#000;
+  transform:translateY(-3px);
+  box-shadow:0 10px 30px rgba(0,255,174,0.3);
+}
+
+/* ===== Cards ===== */
+
+.card{
+  max-width:700px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:30px;
+  line-height:1.8;
+  font-size:18px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+
+.card{
+  transition:.4s ease;
+}
+
+.section.active .card{
+  box-shadow:0 0 30px rgba(0,255,174,0.15);
+  transform:translateY(-5px);
+}
+
+/* ===== Progress Dots ===== */
+
+.progress{
+  position:fixed;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  z-index:1000;
+}
+
+.progress button{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  border:none;
+  background:var(--border);
+  cursor:pointer;
+  transition:.3s;
+  padding:0;
+}
+
+.progress button:hover{
+  transform:scale(1.3);
+  background:var(--accent);
+}
+
+.progress button.active{
+  background:var(--accent);
+  transform:scale(1.5);
+  box-shadow:0 0 15px var(--accent);
+}
+
+
+
+/* ===== Language Switch ===== */
+
+.lang-switch{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:var(--card);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:50px;
+  display:flex;
+  overflow:hidden;
+  z-index:1000;
+}
+
+.lang-switch button{
+  background:none;
+  border:none;
+  padding:8px 16px;
+  color:var(--text);
+  cursor:pointer;
+  font-size:14px;
+  transition:.3s;
+}
+
+.lang-switch button.active{
+  background:var(--accent);
+  color:#000;
+  font-weight:600;
+}
+
+/* ===== Hero ===== */
+
+.hero{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.hero h1{
+  font-size:40px;
+  margin:0;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:18px;
+  margin-top:10px;
+}
+
+.hero h1{
+  background:linear-gradient(90deg,#fff,#00ffae);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+  from{ filter:brightness(1); }
+  to{ filter:brightness(1.3); }
+}
+
+
+/* ===== Footer ===== */
+
+footer{
+  text-align:center;
+  padding:30px 10px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+}
+
+.slide-footer{
+  position:absolute;
+  bottom:20px;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  opacity:.6;
+}
+
+/* ===== Responsive ===== */
+
+@media(max-width:600px){
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .section h2{
+    font-size:20px;
+  }
+
+}
+
+@media (max-width:768px){
+  .progress{
+    right:10px;
+  }
+
+  .progress button{
+    width:10px;
+    height:10px;
+  }
+}
+
+@media(max-width:768px){
+  .nav-pills{
+    display:none;
+  }
+}
+
+@media (max-width:768px){
+  .card{
+    width:100%;
+    max-width:100%;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="lang-switch">
+  <button onclick="setLang('en')" id="btn-en">EN</button>
+  <button onclick="setLang('fa')" id="btn-fa">FA</button>
+</div>
+
+<div class="container">
+
+<div class="section nav-slide">
+  <h1 data-i18n="title"></h1>
+  <p data-i18n="tagline"></p>
+
+  <div class="big-nav">
+    <button onclick="goToSlide(1)" data-i18n="nav_how"></button>
+    <button onclick="goToSlide(2)" data-i18n="nav_why"></button>
+    <button onclick="goToSlide(3)" data-i18n="nav_roadmap"></button>
+    <button onclick="goToSlide(4)" data-i18n="nav_security"></button>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h2 data-i18n="how_title"></h2>
+  <div class="card" data-i18n="how_text"></div>
+  <div class="slide-footer">
+  © 2026 Ranjbar Coin
+</div>
+</div>
+
+<div class="section">
+  <h2 data-i18n="why_title"></h2>
+  <div class="card" data-i18n="why_text"></div>
+  <div class="slide-footer">
+  © 2026 Ranjbar Coin
+</div>
+</div>
+
+<div class="section">
+  <h2 data-i18n="roadmap_title"></h2>
+  <div class="card" data-i18n="roadmap_text"></div>
+  <div class="slide-footer">
+  © 2026 Ranjbar Coin
+</div>
+</div>
+
+<div class="section">
+  <h2 data-i18n="security_title"></h2>
+  <div class="card" data-i18n="security_text"></div>
+  <div class="slide-footer">
+  © 2026 Ranjbar Coin
+</div>
+</div>
+
+
+</div>
+
+<div class="progress">
+  <button onclick="goToSlide(0)"></button>
+  <button onclick="goToSlide(1)"></button>
+  <button onclick="goToSlide(2)"></button>
+  <button onclick="goToSlide(3)"></button>
+  <button onclick="goToSlide(4)"></button>
+</div>
+
+
+<footer>
+  © 2026 Ranjbar Coin. All rights reserved.
+</footer>
+
+<script>
+
+const translations = {
+en:{
+title:"Ranjbar Coin",
+tagline:"Mine. Upgrade. Compete.",
+nav_how:"How It Works",
+nav_why:"Why Ranjbar Coin",
+nav_roadmap:"Roadmap",
+nav_security:"Fair Play",
+how_title:"How It Works",
+how_text:"Tap to mine coins. Use energy wisely. Upgrade your mining power and compete with others in a secure and competitive environment.",
+why_title:"Why Ranjbar Coin",
+why_text:"Built for fairness and competition. Server-validated actions ensure no cheating. Designed for real players, not bots.",
+roadmap_title:"Roadmap",
+roadmap_text:"Phase 1: Core mining system. Phase 2: Invite rewards & daily bonuses. Phase 3: Leaderboard & special events.",
+security_title:"Security & Fair Play",
+security_text:"All mining actions are validated on the server. Anti-cheat systems ensure fair gameplay for everyone."
+},
+fa:{
+title:"رنجبر کوین",
+tagline:"ماین کن. ارتقا بده. رقابت کن.",
+nav_how:"نحوه بازی",
+nav_why:"چرا رنجبر کوین",
+nav_roadmap:"نقشه راه",
+nav_security:"بازی عادلانه",
+how_title:"نحوه بازی",
+how_text:"با ضربه زدن کوین استخراج کن. انرژی خود را مدیریت کن. قدرت استخراجت را ارتقا بده و در محیطی رقابتی رقابت کن.",
+why_title:"چرا رنجبر کوین",
+why_text:"ساخته شده بر پایه عدالت و رقابت. تمام عملیات‌ها در سرور بررسی می‌شوند تا از تقلب جلوگیری شود.",
+roadmap_title:"نقشه راه",
+roadmap_text:"فاز اول: سیستم استخراج. فاز دوم: سیستم دعوت و پاداش روزانه. فاز سوم: جدول رتبه‌بندی و رویدادهای ویژه.",
+security_title:"امنیت و عدالت",
+security_text:"تمام عملیات استخراج در سرور تأیید می‌شود. سیستم ضدتقلب برای حفظ عدالت بین بازیکنان فعال است."
+}
+};
+
+function setLang(lang){
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
+
+  document.body.style.fontFamily = lang === "fa"
+    ? "'Vazirmatn', sans-serif"
+    : "'Inter', sans-serif";
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    el.innerText = translations[lang][el.dataset.i18n];
+  });
+
+  document.getElementById("btn-en").classList.remove("active");
+  document.getElementById("btn-fa").classList.remove("active");
+  document.getElementById("btn-"+lang).classList.add("active");
+
+  localStorage.setItem("lang",lang);
+}
+
+const savedLang = localStorage.getItem("lang") || "en";
+setLang(savedLang);
+
+const sections = document.querySelectorAll(".section");
+const progressDots = document.querySelectorAll(".progress button");
+
+function goToSlide(index){
+  sections[index].scrollIntoView({behavior:"smooth"});
+}
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const index = [...sections].indexOf(entry.target);
+
+      sections.forEach(sec=>sec.classList.remove("active"));
+      entry.target.classList.add("active");
+
+      progressDots.forEach(dot=>dot.classList.remove("active"));
+      if(progressDots[index]){
+        progressDots[index].classList.add("active");
+      }
+    }
+  });
+},{
+  threshold:0.6
+});
+
+sections.forEach(section=>{
+  observer.observe(section);
+});
+
+let isScrolling = false;
+
+container.addEventListener("scroll", () => {
+  if(isScrolling) return;
+
+  isScrolling = true;
+
+  setTimeout(()=>{
+    isScrolling = false;
+  }, 600); // مدت زمان قفل اسکرول
+});
+
+</script>
+
+</body>
+</html>

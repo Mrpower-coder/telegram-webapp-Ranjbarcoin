@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <title>Ranjbar Coin</title>
+
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+      .box{
+          padding:25px;
+      }
+      
+      .box1{
+          padding:15px;
+      }
+  </style>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+</head>
+<body>
+
+<div class="app">
+    
+  <header>
+      <a href="https://ranjbarcoin.ir/info"  target="_blank" class="info-btn">
+  <img src="/static/assets/info.svg" alt="info">
+</a>
+<a href="https://ranjbarcoin.ir/donate"  target="_blank" class="donate-btn">
+  <img src="/static/assets/card.svg" alt="info">
+</a>
+    <h1>Ranjbar Coin 🪙</h1>
+    <div class="box1"></div>
+    <div class="balance-box">
+        <span class="balance-amount" id="balance">0</span>
+        <span class="balance-unit">RBC</span>
+    </div>
+    <!-- LEVEL BOX -->
+    <div class="level-box">
+      <div class="level-header">
+        <span id="level-title">دبیرستانی</span>
+        <span id="level-percent">0%</span>
+      </div>
+    
+      <div class="level-bar">
+        <div class="level-fill" id="level-fill"></div>
+      </div>
+    
+      <div class="level-remaining" id="level-remaining">
+      </div>
+    </div>
+
+  </header>
+
+  <main>
+    <div class="coin" id="coin">
+      <img src="/static/assets/coin.png" alt="coin">
+    </div>
+  </main>
+    
+  <footer>
+    <div class="energy">
+      ⚡️ <span id="energy">0</span> / <span id="max-energy">100</span>
+    </div>
+    <div class="energy-bar">
+          <div class="energy-fill" id="energy-fill"></div>
+        </div>
+    <script src="/static/app.js"></script>
+    <div class="box"></div>
+    <div class="buttons">
+      <a href="/leaderboard" class="btn">Leaderboard</a>
+      <button id="invite-btn" class="btn">Invite</button>
+      <button id="upgrade-btn" class="btn">Upgrade</button>
+      <!--<button>Wallet</button>-->
+    </div>
+  </footer>
+
+</div>
+
+<div id="invite-modal" class="modal">
+  <div class="modal-card">
+
+    <button id="close-invite" class="close-btn">❌</button>
+
+    <h2>Invite Friends 🚀</h2>
+    <p class="subtitle">
+      Share your referral link and earn rewards.
+    </p>
+
+    <div class="referral-box">
+      <input id="referral-link" readonly />
+      <button id="copy-btn" class="copy-btn">Copy</button>
+    </div>
+
+    <button id="share-btn" class="primary-btn">
+      Share on Telegram
+    </button>
+
+  </div>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // مطمئن شو Telegram WebApp آماده است
+    const btn = document.getElementById("upgrade-btn");
+    btn.addEventListener("click", () => {
+        let tgId = null;
+    
+        if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe.user) {
+            tgId = Telegram.WebApp.initDataUnsafe.user.id;
+        }
+    
+        if (tgId) {
+            Telegram.WebApp.openLink(`/upgrades?user_id=${tgId}`);
+        } else {
+            window.location.href = "/upgrades";
+        }
+    });
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const inviteBtn = document.getElementById("invite-btn");
+    const modal = document.getElementById("invite-modal");
+    const closeBtn = document.getElementById("close-invite");
+    const referralInput = document.getElementById("referral-link");
+    const shareBtn = document.getElementById("share-btn");
+    const copyBtn = document.getElementById("copy-btn");
+
+    let TG_ID = null;
+
+    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe.user) {
+        TG_ID = Telegram.WebApp.initDataUnsafe.user.id;
+    }
+
+    inviteBtn.addEventListener("click", () => {
+        if (!TG_ID) return;
+
+        const referralLink = `https://t.me/RanjbarCoinBot?start=${TG_ID}`;
+        referralInput.value = referralLink;
+        modal.classList.add("show");
+    });
+
+    closeBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+    });
+
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.remove("show");
+        }
+    });
+
+    copyBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(referralInput.value);
+    
+        const originalText = copyBtn.innerText;
+    
+        copyBtn.innerText = "✓ Copied";
+        copyBtn.style.background = "#28c76f";
+    
+        setTimeout(() => {
+            copyBtn.innerText = originalText;
+            copyBtn.style.background = "#3a7bfd";
+        }, 2000);
+    });
+
+    shareBtn.addEventListener("click", () => {
+        const referralLink = referralInput.value;
+        Telegram.WebApp.openTelegramLink(
+            `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent("Join Ranjbar Coin and start earning today! 🚀")}`
+        );
+    });
+
+});
+</script>
+
+</body>
+</html>

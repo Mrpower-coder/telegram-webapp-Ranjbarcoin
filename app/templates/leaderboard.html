@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <title>Ranjbar Coin Leaderboard</title>
+  <link rel="stylesheet" href="/static/leaderboard.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>🏆 Ranjbar Coin Leaderboard</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>First Name</th>
+        <!--<th>Last Name</th>-->
+        <th>Username</th>
+        <th>Balance (RBC)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ loop.index }}</td>
+
+        <td>{{ user.first_name if user.first_name else "N/A" }}</td>
+        <!--<td>{{ user.last_name if user.last_name else "N/A" }}</td>-->
+
+        <td>
+          {% if user.username %}
+            @{{ user.username }}
+          {% else %}
+            N/A
+          {% endif %}
+        </td>
+
+        <td>{{ user.balance }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+  <button onclick="window.location.href='/';" class="learn-more"> Back to GAME
+</button>
+</div>
+
+</body>
+</html>

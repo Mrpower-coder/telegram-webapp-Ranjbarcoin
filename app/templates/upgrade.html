@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranjbar Coin - Upgrades</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.4em;
+    }
+
+    .balance {
+      font-weight: bold;
+      margin-top: 5px;
+      font-size: 1.2em;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      width: 180px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      font-size: 1.1em;
+    }
+
+    .level {
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 0.9em;
+      color: #888;
+      margin-top: 10px;
+    }
+
+    button.upgrade-btn {
+      background: #f5a623;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    button.upgrade-btn:hover {
+      background: #ffb84d;
+    }
+
+    button.upgrade-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    @media(max-width: 500px){
+      .card {
+        width: 45%;
+      }
+    }
+    
+    /* پیام پاپ آپ پایین صفحه */
+    .upgrade-popup {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #f39c12;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+    /* From Uiverse.io by Madflows */ 
+    button {
+     position: relative;
+     display: inline-block;
+     cursor: pointer;
+     outline: none;
+     border: 0;
+     vertical-align: middle;
+     text-decoration: none;
+     font-family: inherit;
+     font-size: 15px;
+    }
+    
+    button.learn-more {
+     font-weight: 600;
+     color: #382b22;
+     text-transform: uppercase;
+     padding: 1.25em 2em;
+     background: #fff0f0;
+     border: 2px solid #b18597;
+     border-radius: 0.75em;
+     -webkit-transform-style: preserve-3d;
+     transform-style: preserve-3d;
+     -webkit-transition: background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+     transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+    }
+    
+    button.learn-more::before {
+     position: absolute;
+     content: '';
+     width: 100%;
+     height: 100%;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background: #f9c4d2;
+     border-radius: inherit;
+     -webkit-box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2;
+     box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2;
+     -webkit-transform: translate3d(0, 0.75em, -1em);
+     transform: translate3d(0, 0.75em, -1em);
+     transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+    }
+    
+    button.learn-more:hover {
+     background: #ffe9e9;
+     -webkit-transform: translate(0, 0.25em);
+     transform: translate(0, 0.25em);
+    }
+    
+    button.learn-more:hover::before {
+     -webkit-box-shadow: 0 0 0 2px #b18597, 0 0.5em 0 0 #ffe3e2;
+     box-shadow: 0 0 0 2px #b18597, 0 0.5em 0 0 #ffe3e2;
+     -webkit-transform: translate3d(0, 0.5em, -1em);
+     transform: translate3d(0, 0.5em, -1em);
+    }
+    
+    button.learn-more:active {
+     background: #ffe9e9;
+     -webkit-transform: translate(0em, 0.75em);
+     transform: translate(0em, 0.75em);
+    }
+    
+    button.learn-more:active::before {
+     -webkit-box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
+     box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
+     -webkit-transform: translate3d(0, 0, -1em);
+     transform: translate3d(0, 0, -1em);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Your Balance: <span id="balance">0</span> 🪙
+  </header>
+
+  <div class="container">
+    <div class="card" id="power-card">
+      <h3>Power</h3>
+      <div class="level">Level: <span id="power-level">1</span></div>
+      <button class="upgrade-btn" id="power-upgrade">Upgrade</button>
+      <div class="price">Price: <span id="power-price">0</span> 🪙</div>
+    </div>
+
+    <div class="card" id="energy-card">
+      <h3>Energy</h3>
+      <div class="level">Level: <span id="energy-level">1</span></div>
+      <button class="upgrade-btn" id="energy-upgrade">Upgrade</button>
+      <div class="price">Price: <span id="energy-price">0</span> 🪙</div>
+    </div>
+
+    <div class="card" id="regen-card">
+      <h3>Regen</h3>
+      <div class="level">Level: <span id="regen-level">1</span></div>
+      <button class="upgrade-btn" id="regen-upgrade">Upgrade</button>
+      <div class="price">Price: <span id="regen-price">0</span> 🪙</div>
+    </div>
+    
+      <button onclick="closeTab()" class="learn-more">Back to GAME</button>
+  </div>
+
+
+<script>
+const API = "";
+
+// ===== TG_ID =====
+let TG_ID = null;
+
+// ===== Elements =====
+const balanceEl = document.getElementById("balance");
+
+const powerLevelEl = document.getElementById("power-level");
+const powerPriceEl = document.getElementById("power-price");
+const powerBtn = document.getElementById("power-upgrade");
+
+const energyLevelEl = document.getElementById("energy-level");
+const energyPriceEl = document.getElementById("energy-price");
+const energyBtn = document.getElementById("energy-upgrade");
+
+const regenLevelEl = document.getElementById("regen-level");
+const regenPriceEl = document.getElementById("regen-price");
+const regenBtn = document.getElementById("regen-upgrade");
+
+// const backBtn = document.getElementById("back-to-game");
+
+// ===== Popup message =====
+function showPopup(msg) {
+    const popup = document.createElement("div");
+    popup.className = "upgrade-popup";
+    popup.innerText = msg;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 2000);
+}
+
+// ===== Init =====
+document.addEventListener("DOMContentLoaded", () => {
+    // دریافت TG_ID
+    const params = new URLSearchParams(window.location.search);
+    TG_ID = params.get("user_id");
+
+    if (!TG_ID) {
+        TG_ID = localStorage.getItem("TG_ID");
+    }   
+    if (!TG_ID && window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe.user) {
+        TG_ID = Telegram.WebApp.initDataUnsafe.user.id;
+        localStorage.setItem("TG_ID", TG_ID);
+    }
+    if (TG_ID) {
+        localStorage.setItem("TG_ID", TG_ID);
+    }
+    if (!TG_ID) {
+        alert("❌ لطفا از داخل تلگرام وارد شوید");
+        document.body.innerHTML = "<h2 style='text-align:center'>Open inside Telegram<br> telegram bot: t.me/RanjbarCoinBot</h2>";
+        throw new Error("No Telegram ID");
+    }
+
+    loadState();
+
+    // دکمه‌ها
+    powerBtn.addEventListener("click", () => upgrade("power"));
+    energyBtn.addEventListener("click", () => upgrade("energy"));
+    regenBtn.addEventListener("click", () => upgrade("regen"));
+
+    backBtn.addEventListener("click", () => {
+        window.location.href = "/"; // برگشت به بازی
+    });
+});
+
+// ===== Load User State =====
+async function loadState() {
+    try {
+        const res = await fetch(API + "/state", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: TG_ID })
+        });
+        const data = await res.json();
+        if (!res.ok) return;
+
+        balanceEl.innerText = data.balance;
+        loadUpgrades();
+    } catch (e) {
+        console.error("Load state error:", e);
+    }
+}
+
+// ===== Load Upgrades =====
+async function loadUpgrades() {
+    try {
+        // اصلاح: GET بدون body + user_id از query param
+        const res = await fetch(`${API}/upgrades/state?user_id=${TG_ID}`);
+        const data = await res.json();
+        if (!res.ok) return;
+
+        // Power
+        powerLevelEl.innerText = data.power.level;
+        powerPriceEl.innerText = data.power.price;
+        powerBtn.disabled = data.power.price > parseInt(balanceEl.innerText);
+
+        // Energy
+        energyLevelEl.innerText = data.energy.level;
+        energyPriceEl.innerText = data.energy.price;
+        energyBtn.disabled = data.energy.price > parseInt(balanceEl.innerText);
+
+        // Regen
+        regenLevelEl.innerText = data.regen.level;
+        regenPriceEl.innerText = data.regen.price;
+        regenBtn.disabled = data.regen.price > parseInt(balanceEl.innerText);
+
+    } catch (e) {
+        console.error("Load upgrades error:", e);
+    }
+}
+
+// ===== Upgrade Function =====
+async function upgrade(type) {
+    try {
+        const res = await fetch(API + "/upgrade", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: TG_ID, type })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+            showPopup(data.error || "Upgrade failed");
+            return;
+        }
+
+        balanceEl.innerText = data.balance;
+        loadUpgrades();
+
+    } catch (e) {
+        console.error("Upgrade error:", e);
+    }
+}
+
+document.getElementById("back-btn").addEventListener("click", () => {
+    if (window.Telegram && Telegram.WebApp) {
+        Telegram.WebApp.close(); // ← این صفحه وب‌اپ رو می‌بنده و برمی‌گرده به ربات
+    } else {
+        // fallback برای مرورگر معمولی
+        window.location.href = "/";
+    }
+});
+
+function closeTab() {
+  window.close();
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Ranjbar Coin</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:radial-gradient(circle at top,#14172b,#0c0e1a);
+    color:#fff;
+}
+
+/* container */
+.container{
+    text-align:center;
+    padding:20px;
+    width:100%;
+}
+
+/* title */
+.title{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    font-size:14px;
+    opacity:0.7;
+    margin-bottom:40px;
+}
+
+/* card */
+.donate-card{
+    margin:auto;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:40px 30px;
+    max-width:420px;
+    box-shadow:0 0 40px rgba(0,255,255,0.05);
+    transition:0.3s;
+}
+
+.donate-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 60px rgba(0,255,255,0.1);
+}
+
+.card-label{
+    font-size:14px;
+    opacity:0.6;
+}
+
+.card-number{
+    font-size:20px;
+    letter-spacing:3px;
+    margin:20px 0;
+    font-weight:600;
+}
+
+.name{
+    font-size:14px;
+    opacity:0.8;
+    margin-bottom:25px;
+}
+
+/* button */
+.copy-btn{
+    padding:12px 22px;
+    border-radius:12px;
+    border:none;
+    cursor:pointer;
+    background:#00e0ff;
+    color:#000;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.copy-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 15px #00e0ff;
+}
+
+/* toast */
+.toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:#00e0ff;
+    color:#000;
+    padding:12px 20px;
+    border-radius:12px;
+    font-weight:600;
+    transition:0.4s;
+    opacity:0;
+}
+
+.toast.show{
+    transform:translateX(-50%) translateY(0);
+    opacity:1;
+}
+
+@media(max-width:480px){
+    .donate-card{
+        padding:30px 20px;
+    }
+    .card-number{
+        font-size:16px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="title">Support Ranjbar Coin 🪙</div>
+    <div class="subtitle">
+        Every coin helps improve the game and build something bigger.
+    </div>
+
+    <div class="donate-card">
+
+        <div class="card-label">Card Number</div>
+
+        <div class="card-number" id="cardNumber">
+            6219 8619 5579 8094
+        </div>
+
+        <div class="name">
+            Mirbehresi
+        </div>
+
+        <button class="copy-btn" onclick="copyCard()">
+            Copy Card Number
+        </button>
+
+    </div>
+
+</div>
+
+<div class="toast" id="toast">
+    Copied Successfully ✅
+</div>
+
+<script>
+
+function copyCard(){
+    const number = document.getElementById("cardNumber").innerText.replace(/\s/g,'');
+    navigator.clipboard.writeText(number);
+
+    const toast = document.getElementById("toast");
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },2000);
+}
+
+</script>
+
+</body>
+</html>
