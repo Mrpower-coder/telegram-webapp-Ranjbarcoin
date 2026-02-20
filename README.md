@@ -4,6 +4,10 @@ RanjbarCoin is a Telegram bot integrated with a WebApp interface that allows use
 The project includes a leaderboard system, upgrade mechanics, donation pages, and database-backed user management.
 
 ---
+## Demo
+
+![Preview](preview.png)
+
 
 ## 🚀 Features
 
